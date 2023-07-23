@@ -1,3 +1,7 @@
+## 6.1.6
+
+- Fix incorrect snap area problem. (changed [snap] to [snapArea])
+
 ## 6.1.5
 
 - Fix exception that [snap] feature is enabled only for iOS
