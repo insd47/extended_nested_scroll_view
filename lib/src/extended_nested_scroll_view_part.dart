@@ -16,7 +16,7 @@ class _ExtendedNestedScrollCoordinator extends _NestedScrollCoordinator {
       this.pinnedHeaderSliverHeightBuilder,
       this.onlyOneScrollInBody,
       this.scrollDirection,
-      this.snap)
+      this.snapArea)
       : super(
           state,
           parent,
@@ -54,16 +54,14 @@ class _ExtendedNestedScrollCoordinator extends _NestedScrollCoordinator {
   /// Defaults to [Axis.vertical].
   final Axis scrollDirection;
 
-  final bool snap;
+  final double? snapArea;
 
   @override
   void goBallistic(double velocity) {
     bool hasSnap = false;
 
-    if (snap) {
+    if (snapArea != null) {
       const double minVelocity = 0.001;
-
-      final double maxHeight = _outerPosition!.maxScrollExtent;
       final double nowHeight = _outerPosition!.pixels;
 
       void animateToTop() {
@@ -79,14 +77,14 @@ class _ExtendedNestedScrollCoordinator extends _NestedScrollCoordinator {
       }
 
       for (final _ExtendedNestedScrollPosition position in _innerPositions) {
-        if (nowHeight < maxHeight) {
+        if (nowHeight < snapArea!) {
           if (velocity > minVelocity &&
-              velocity < maxHeight - position.pixels) {
+              velocity < snapArea! - position.pixels) {
             animateToBottom();
           } else if (velocity < -minVelocity && velocity > -position.pixels) {
             animateToTop();
           } else if (velocity.abs() <= minVelocity) {
-            if (nowHeight <= maxHeight / 2) {
+            if (nowHeight <= snapArea! / 2) {
               animateToTop();
             } else {
               animateToBottom();
@@ -262,7 +260,7 @@ class _ExtendedNestedScrollCoordinatorOuter
         pinnedHeaderSliverHeightBuilder,
     bool onlyOneScrollInBody,
     Axis scrollDirection,
-    bool snap,
+    double? snapArea,
   ) : super(
           state,
           parent,
@@ -271,7 +269,7 @@ class _ExtendedNestedScrollCoordinatorOuter
           pinnedHeaderSliverHeightBuilder,
           onlyOneScrollInBody,
           scrollDirection,
-          snap,
+          snapArea,
         ) {
     final double initialScrollOffset = _parent?.initialScrollOffset ?? 0.0;
     _outerController = _ExtendedNestedScrollControllerOuter(
