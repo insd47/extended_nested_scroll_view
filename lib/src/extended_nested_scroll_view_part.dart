@@ -72,7 +72,7 @@ class _ExtendedNestedScrollCoordinator extends _NestedScrollCoordinator {
 
       void animateToBottom() {
         hasSnap = true;
-        animateTo(_outerPosition!.maxScrollExtent,
+        animateTo(snapArea!,
             curve: Curves.ease, duration: const Duration(milliseconds: 200));
       }
 
