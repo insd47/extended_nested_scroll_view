@@ -619,13 +619,8 @@ class _ExtendedNestedScrollPosition extends _NestedScrollPosition {
     coordinator.updateCanDrag(position: this);
   }
 
-  double get originalMaxScrollExtent => _originalMaxScrollExtent;
-  double _originalMaxScrollExtent = 0.0;
-
   @override
   bool applyContentDimensions(double minScrollExtent, double maxScrollExtent) {
-    _originalMaxScrollExtent = maxScrollExtent;
-
     if (debugLabel == 'outer' &&
         coordinator.pinnedHeaderSliverHeightBuilder != null) {
       maxScrollExtent =
