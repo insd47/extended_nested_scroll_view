@@ -76,19 +76,16 @@ class _ExtendedNestedScrollCoordinator extends _NestedScrollCoordinator {
             curve: Curves.ease, duration: const Duration(milliseconds: 200));
       }
 
-      for (final _ExtendedNestedScrollPosition position in _innerPositions) {
-        if (nowHeight < snapArea!) {
-          if (velocity > minVelocity &&
-              velocity < snapArea! - position.pixels) {
-            animateToBottom();
-          } else if (velocity < -minVelocity && velocity > -position.pixels) {
+      if (nowHeight > 0 && nowHeight < snapArea!) {
+        if (velocity > minVelocity && velocity < snapArea! - nowHeight) {
+          animateToBottom();
+        } else if (velocity < -minVelocity && velocity > -nowHeight) {
+          animateToTop();
+        } else if (velocity.abs() <= minVelocity) {
+          if (nowHeight <= snapArea! / 2) {
             animateToTop();
-          } else if (velocity.abs() <= minVelocity) {
-            if (nowHeight <= snapArea! / 2) {
-              animateToTop();
-            } else {
-              animateToBottom();
-            }
+          } else {
+            animateToBottom();
           }
         }
       }
