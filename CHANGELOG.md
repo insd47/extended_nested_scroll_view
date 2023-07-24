@@ -1,3 +1,7 @@
+## 6.1.8
+
+- Clean unused variables.
+
 ## 6.1.7
 
 - Fix incorrect overscroll effect.
