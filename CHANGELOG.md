@@ -1,3 +1,7 @@
+## 6.1.7
+
+- Fix incorrect overscroll effect.
+
 ## 6.1.6
 
 - Fix incorrect snap area problem. (changed [snap] to [snapArea])
